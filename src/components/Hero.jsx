@@ -36,11 +36,11 @@ export default function Hero() {
               <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-muted-foreground">
                 <TypeAnimation
                   sequence={[
-                    "Freelance Developer",
+                    "Full Stack Developer",
                     2000,
                     "UI/UX Enthusiast",
                     2000,
-                    "MERN Stack Engineer",
+                    "MERN Stack Developer",
                     2000,
                   ]}
                   wrapper="span"
@@ -115,7 +115,7 @@ export default function Hero() {
       whileHover={{ scale: 1.05 }}
     >
       <p className="font-medium text-base sm:text-lg animate-pulse">5+ Years Experience</p>
-      <p className="text-xs sm:text-sm text-background/90">in Web Development</p>
+      <p className="text-xs sm:text-sm text-background/90">in Full Stack Development</p>
     </motion.div>
   </div>
 </AnimateOnScroll>

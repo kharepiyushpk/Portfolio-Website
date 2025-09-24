@@ -15,38 +15,62 @@ import AnimateOnScroll, { AnimateStagger } from "./AnimateOnScroll"
 
 export default function Skills() {
   const services = [
-    {
-      icon: <Layout className="h-10 w-10 text-gradient" />,
-      title: "Web Design",
-      description:
-        "Creating beautiful, responsive websites that look great on all devices and provide an excellent user experience.",
-    },
-    {
-      icon: <Code className="h-10 w-10 text-gradient" />,
-      title: "Web Development",
-      description: "Building robust web applications using modern technologies like React, Vue, and Node.js.",
-    },
-    {
-      icon: <PenTool className="h-10 w-10 text-gradient" />,
-      title: "UI/UX Design",
-      description: "Designing intuitive user interfaces and experiences that engage users and achieve business goals.",
-    },
-    {
-      icon: <Database className="h-10 w-10 text-gradient" />,
-      title: "Backend Development",
-      description: "Creating secure, scalable backend systems and APIs to power your applications.",
-    },
-    {
-      icon: <LineChart className="h-10 w-10 text-gradient" />,
-      title: "SEO Optimization",
-      description: "Improving your website's visibility in search engines to drive more organic traffic.",
-    },
-    {
-      icon: <Users className="h-10 w-10 text-gradient" />,
-      title: "Consultation",
-      description: "Providing expert advice on technology choices, architecture, and digital strategy.",
-    },
-  ]
+  {
+    icon: <Layout className="h-10 w-10 text-gradient" />,
+    title: "Web Design",
+    description:
+      "Modern, responsive designs that deliver seamless experiences across devices while enhancing brand identity.",
+  },
+  {
+    icon: <Code className="h-10 w-10 text-gradient" />,
+    title: "Frontend Development",
+    description:
+      "High-performance, interactive UIs built with React, Next.js, and Vue for fast and engaging user experiences.",
+  },
+  {
+    icon: <Database className="h-10 w-10 text-gradient" />,
+    title: "Backend Development",
+    description:
+      "Scalable and secure server-side systems using Node.js, Express, Java, and Spring Boot with REST & GraphQL APIs.",
+  },
+  {
+    icon: <Laptop className="h-10 w-10 text-gradient" />,
+    title: "Full-Stack Applications",
+    description:
+      "End-to-end application development combining robust backend APIs with powerful frontend interfaces.",
+  },
+  {
+    icon: <PenTool className="h-10 w-10 text-gradient" />,
+    title: "UI/UX Design",
+    description:
+      "User-focused designs with wireframing, prototyping, and usability testing for intuitive digital products.",
+  },
+  {
+    icon: <LineChart className="h-10 w-10 text-gradient" />,
+    title: "SEO Optimization",
+    description:
+      "Improving search visibility with technical SEO, optimized content, and analytics-driven strategies.",
+  },
+  {
+    icon: <Wrench className="h-10 w-10 text-gradient" />,
+    title: "DevOps & Deployment",
+    description:
+      "CI/CD pipelines, containerization with Docker, and cloud hosting solutions on AWS, Vercel, and Netlify.",
+  },
+  {
+    icon: <Server className="h-10 w-10 text-gradient" />,
+    title: "Database Management",
+    description:
+      "Efficient database design, optimization, and integration using MongoDB, PostgreSQL, MySQL, and Firebase.",
+  },
+  {
+    icon: <Users className="h-10 w-10 text-gradient" />,
+    title: "Consultation & Strategy",
+    description:
+      "Expert advice on technology choices, digital strategy, and system architecture tailored to your business goals.",
+  },
+]
+
 
   const skillCategories = [
     {
