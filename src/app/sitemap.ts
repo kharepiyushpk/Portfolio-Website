@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { profile } from "@/data/profile";
+import { siteUrl } from "@/lib/site";
 import { projects } from "@/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = profile.siteUrl;
+  const base = siteUrl;
   return [
     { url: base, priority: 1 },
     { url: `${base}/projects`, priority: 0.9 },

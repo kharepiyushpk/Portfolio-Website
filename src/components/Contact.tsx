@@ -5,6 +5,7 @@ import { ArrowUpRight, Check, Copy, Mail, Phone } from "lucide-react";
 import { profile, whatsappHref } from "@/data/profile";
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "./icons";
 import { Reveal } from "./Reveal";
+import { Tilt } from "./motion-kit";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -78,7 +79,8 @@ export function Contact() {
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
           {actions.map((a, i) => (
-            <Reveal key={a.label} delay={i * 0.08}>
+            <Reveal key={a.label} delay={i * 0.08} className="h-full">
+              <Tilt className="h-full" max={6}>
               <div
                 style={{ ["--c" as string]: a.color }}
                 className="card group relative flex h-full items-center gap-4 overflow-hidden p-4 transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--c)_55%,transparent)] hover:shadow-[0_20px_50px_-24px_var(--c)] md:flex-col md:items-start md:p-6 md:min-h-[220px]"
@@ -87,7 +89,7 @@ export function Contact() {
                   aria-hidden
                   className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c)_22%,transparent),transparent)] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)] ring-1 ring-[color-mix(in_srgb,var(--c)_30%,transparent)] md:size-14">
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)] ring-1 ring-[color-mix(in_srgb,var(--c)_30%,transparent)] md:size-14">
                   <a.Icon className="size-6" />
                 </span>
                 <span className="min-w-0 flex-1 md:mt-auto">
@@ -113,6 +115,7 @@ export function Contact() {
                   </button>
                 )}
               </div>
+              </Tilt>
             </Reveal>
           ))}
         </div>

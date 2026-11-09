@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { ProjectCover } from "./ProjectCover";
+import { Tilt } from "./motion-kit";
 
 export function StatusBadge({ status }: { status: Project["status"] }) {
   const live = status === "Live" || status === "In production";
@@ -36,6 +37,7 @@ export function ProjectCard({ project, size = "md" }: { project: Project; size?:
 
   if (size === "lg") {
     return (
+      <Tilt max={3}>
       <Link
         href={`/projects/${project.slug}`}
         {...spot}
@@ -77,14 +79,16 @@ export function ProjectCard({ project, size = "md" }: { project: Project; size?:
         </div>
         <ProjectCover kind={project.cover} accent={project.accent} className="h-72 border-t md:h-auto md:min-h-[300px] border-border md:border-l md:border-t-0" />
       </Link>
+      </Tilt>
     );
   }
 
   return (
+    <Tilt className="h-full" max={5}>
     <Link
       href={`/projects/${project.slug}`}
       {...spot}
-      className="spotlight card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:border-border-strong"
+      className="spotlight card group flex h-full flex-col overflow-hidden transition duration-300 hover:border-border-strong hover:shadow-[0_24px_60px_-30px_var(--glow)]"
     >
       <div className="relative">
         <ProjectCover kind={project.cover} accent={project.accent} className={size === "sm" ? "h-44" : "h-56"} />
@@ -115,5 +119,6 @@ export function ProjectCard({ project, size = "md" }: { project: Project; size?:
         </div>
       </div>
     </Link>
+    </Tilt>
   );
 }

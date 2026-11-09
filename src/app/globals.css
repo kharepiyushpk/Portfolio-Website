@@ -96,7 +96,9 @@ body {
   }
 
   .text-gradient {
-    background: linear-gradient(110deg, var(--brand) 10%, var(--brand-2) 90%);
+    background: linear-gradient(110deg, var(--brand) 10%, var(--brand-2) 45%, var(--brand) 90%);
+    background-size: 200% auto;
+    animation: shimmer 8s linear infinite;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -198,6 +200,9 @@ body {
 .animate-marquee {
   animation: marquee 40s linear infinite;
 }
+.animate-marquee-reverse {
+  animation: marquee 46s linear infinite reverse;
+}
 .marquee-mask {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
@@ -225,6 +230,44 @@ body {
 }
 .pulse-dot {
   animation: pulse-dot 1.8s ease-out infinite;
+}
+
+/* hero ke background orbs dheere-dheere tairte hain */
+@keyframes drift {
+  0%, 100% { transform: translate(-50%, 0) scale(1); }
+  50% { transform: translate(-46%, 24px) scale(1.08); }
+}
+@keyframes drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-60px, 40px) scale(1.15); }
+}
+@keyframes drift-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(50px, -30px); }
+}
+.animate-drift { animation: drift 14s ease-in-out infinite; }
+.animate-drift-2 { animation: drift-2 18s ease-in-out infinite; }
+.animate-drift-3 { animation: drift-3 16s ease-in-out infinite; }
+
+@keyframes scroll-dot {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+.animate-scroll-dot { animation: scroll-dot 1.8s ease-in-out infinite; }
+
+/* gradient text me halki chamak chalti rehti hai */
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+.text-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 6s linear infinite;
+}
+
+/* chip / tag pe hover */
+.chip {
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

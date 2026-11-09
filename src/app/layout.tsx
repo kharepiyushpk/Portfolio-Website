@@ -5,12 +5,13 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingActions, ScrollProgress } from "@/components/FloatingActions";
 import { profile } from "@/data/profile";
+import { siteUrl } from "@/lib/site";
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(profile.siteUrl),
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${profile.name} — ${profile.role}`,
     template: `%s · ${profile.name}`,
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     title: `${profile.name} — ${profile.role}`,
     description: profile.intro,
-    url: profile.siteUrl,
+    url: siteUrl,
     siteName: profile.name,
     images: [{ url: "/avatar.png", width: 801, height: 868, alt: profile.name }],
   },

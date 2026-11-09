@@ -13,7 +13,6 @@ export const profile = {
   whatsappText: "Hi Piyush, I saw your portfolio and would like to talk about",
   avatar: "/avatar.png",
   available: true,
-  siteUrl: "https://portfolio-website-tan-gamma-33.vercel.app",
   socials: {
     github: "https://github.com/kharepiyushpk",
     linkedin: "https://www.linkedin.com/in/piyush-khare-715179233/",

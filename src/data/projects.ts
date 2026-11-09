@@ -581,7 +581,7 @@ export const projects: Project[] = [
     cover: "site",
     stack: [{ group: "Frontend", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Motion"] }],
     highlights: ["Static generation for every project page", "Theme toggle without flash", "Filterable project explorer"],
-    links: { live: "https://portfolio-website-tan-gamma-33.vercel.app", github: "https://github.com/kharepiyushpk/Portfolio-Website" },
+    links: { github: "https://github.com/kharepiyushpk/Portfolio-Website" },
   },
 ];
 

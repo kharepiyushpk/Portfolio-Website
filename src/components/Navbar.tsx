@@ -69,6 +69,12 @@ export function Navbar() {
     return () => io.disconnect();
   }, [pathname]);
 
+  // Link dabane pe turant scroll unlock — warna browser "#section" tak scroll nahi kar pata
+  function closeMenu() {
+    document.body.style.overflow = "";
+    setOpen(false);
+  }
+
   // Mobile menu khula ho to peeche ka page scroll na ho
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -135,7 +141,7 @@ export function Navbar() {
           >
             {[...links, { href: "/#contact", label: "Contact" }].map((l, i) => (
               <motion.div key={l.href} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.03 * i }}>
-                <Link href={l.href} onClick={() => setOpen(false)} className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-base hover:bg-bg-soft">
+                <Link href={l.href} onClick={closeMenu} className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-base hover:bg-bg-soft">
                   {l.label}
                   <span className="font-mono text-xs text-subtle">0{i + 1}</span>
                 </Link>

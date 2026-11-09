@@ -7,6 +7,7 @@ import { ProjectCover } from "@/components/ProjectCover";
 import { StatusBadge } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
 import { GithubIcon } from "@/components/icons";
+import { CountUp, Parallax, SplitWords, Stagger, StaggerItem } from "@/components/motion-kit";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -53,7 +54,9 @@ export default async function ProjectPage({ params }: Props) {
               </span>
             ))}
           </div>
-          <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-6xl">{p.title}</h1>
+          <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+            <SplitWords text={p.title} inView={false} delay={0.1} />
+          </h1>
           <p className="mt-4 max-w-3xl text-pretty text-xl text-muted sm:text-2xl">{p.tagline}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             {p.links.live && (
@@ -75,7 +78,11 @@ export default async function ProjectPage({ params }: Props) {
         </Reveal>
 
         <Reveal delay={0.1} className="mt-12">
-          <ProjectCover kind={p.cover} accent={p.accent} className="card h-72 sm:h-[26rem]" />
+          <div className="card overflow-hidden">
+            <Parallax offset={-30}>
+              <ProjectCover kind={p.cover} accent={p.accent} className="h-72 scale-110 sm:h-[26rem]" />
+            </Parallax>
+          </div>
         </Reveal>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_320px]">
@@ -94,14 +101,14 @@ export default async function ProjectPage({ params }: Props) {
 
             <Reveal as="section">
               <h2 className="eyebrow">Key features</h2>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              <Stagger as="ul" className="mt-5 grid gap-3 sm:grid-cols-2" gap={0.06}>
                 {p.highlights.map((h) => (
-                  <li key={h} className="card flex gap-3 p-4 text-[15px] leading-relaxed">
+                  <StaggerItem as="li" key={h} className="card flex gap-3 p-4 text-[15px] leading-relaxed transition-colors hover:border-border-strong">
                     <CheckCircle2 className="mt-0.5 size-5 shrink-0" style={{ color: p.accent }} />
                     <span>{h}</span>
-                  </li>
+                  </StaggerItem>
                 ))}
-              </ul>
+              </Stagger>
             </Reveal>
 
             {p.challenges && (
@@ -142,7 +149,7 @@ export default async function ProjectPage({ params }: Props) {
                 {p.metrics.map((m) => (
                   <div key={m.label} className="card p-4">
                     <p className="text-xl font-semibold tracking-tight" style={{ color: p.accent }}>
-                      {m.value}
+                      <CountUp value={m.value} />
                     </p>
                     <p className="text-xs text-muted">{m.label}</p>
                   </div>
