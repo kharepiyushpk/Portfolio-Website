@@ -1,12 +1,25 @@
-# React + Vite
+# Piyush Khare — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio built with **Next.js 16 (App Router)**, React 19, TypeScript, Tailwind CSS v4 and Motion.
 
-Currently, two official plugins are available:
+## Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build (all pages are static)
+```
 
-## Expanding the ESLint configuration
+## Where to edit
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| What | File |
+|---|---|
+| Name, intro, about, contact, socials | `src/data/profile.ts` |
+| Experience timeline and skills | `src/data/profile.ts` (`experience`, `skillGroups`) |
+| Projects (each gets its own page at `/projects/<slug>`) | `src/data/projects.ts` |
+| Colours / theme | `src/app/globals.css` (`:root` and `.dark`) |
+
+To add a project, add an object to `projects` in `src/data/projects.ts`. Set `featured: true` to show it in
+"Selected work" on the home page. `cover` picks the illustration used on the card.
+
+Deploys to Vercel with no extra settings.
