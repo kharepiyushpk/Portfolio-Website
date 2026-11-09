@@ -77,22 +77,22 @@ export function Contact() {
           </div>
         </Reveal>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-5xl gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-3">
           {actions.map((a, i) => (
             <Reveal key={a.label} delay={i * 0.08} className="h-full">
               <Tilt className="h-full" max={6}>
               <div
                 style={{ ["--c" as string]: a.color }}
-                className="card group relative flex h-full items-center gap-4 overflow-hidden p-4 transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--c)_55%,transparent)] hover:shadow-[0_20px_50px_-24px_var(--c)] md:flex-col md:items-start md:p-6 md:min-h-[220px]"
+                className="card group relative flex h-full items-center gap-4 overflow-hidden p-4 transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--c)_55%,transparent)] hover:shadow-[0_20px_50px_-24px_var(--c)] lg:flex-col lg:items-start lg:p-6 lg:min-h-[220px]"
               >
                 <span
                   aria-hidden
                   className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c)_22%,transparent),transparent)] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <span className="grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)] ring-1 ring-[color-mix(in_srgb,var(--c)_30%,transparent)] md:size-14">
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)] ring-1 ring-[color-mix(in_srgb,var(--c)_30%,transparent)] lg:size-14">
                   <a.Icon className="size-6" />
                 </span>
-                <span className="min-w-0 flex-1 md:mt-auto">
+                <span className="min-w-0 flex-1 lg:mt-auto">
                   <a
                     href={a.href}
                     target={a.external ? "_blank" : undefined}
@@ -109,7 +109,7 @@ export function Contact() {
                   <button
                     onClick={copy}
                     aria-label="Copy email address"
-                    className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-bg text-muted transition hover:border-border-strong hover:text-fg md:absolute md:right-4 md:top-4 md:size-9"
+                    className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-bg text-muted transition hover:border-border-strong hover:text-fg lg:absolute lg:right-4 lg:top-4 lg:size-9"
                   >
                     {copied ? <Check className="size-4 text-green-500" /> : <Copy className="size-4" />}
                   </button>

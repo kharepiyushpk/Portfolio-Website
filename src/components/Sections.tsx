@@ -60,7 +60,7 @@ export function About() {
         {principles.map((p, i) => (
           <StaggerItem key={p.title}>
             <Tilt className="h-full">
-              <div className="card group h-full p-6 transition-colors hover:border-border-strong">
+              <div className="card group h-full p-5 transition-colors hover:border-border-strong sm:p-6">
                 <div className="flex items-center justify-between">
                   <p className="font-mono text-xs text-brand">0{i + 1}</p>
                   <span className="h-px w-8 origin-right bg-brand transition-all duration-500 group-hover:w-14" />
@@ -85,19 +85,19 @@ export function Experience() {
       <div className="container-x">
         <SectionHeading eyebrow="Experience" title="Where I've been building" description="Teams and products I've worked on, and what I shipped there." />
         <ol ref={listRef} className="relative mt-14 space-y-6 sm:space-y-8">
-          <ScrollLine targetRef={listRef} className="bottom-2 left-[7px] top-2" />
+          <ScrollLine targetRef={listRef} className="bottom-2 left-[5px] top-2 sm:left-[7px]" />
           {experience.map((e, i) => (
-            <Reveal as="li" key={e.company} delay={i * 0.05} className="relative pl-8 sm:pl-10">
+            <Reveal as="li" key={e.company} delay={i * 0.05} className="relative pl-6 sm:pl-10">
               <motion.span
                 initial={reduce ? false : { scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true, margin: "-120px" }}
                 transition={{ type: "spring", stiffness: 400, damping: 18, delay: 0.15 }}
-                className="absolute left-0 top-7 size-[15px] rounded-full border-4 border-bg-soft bg-brand shadow-[0_0_0_4px_var(--glow)]"
+                className="absolute left-0 top-7 size-[11px] rounded-full border-[3px] border-bg-soft bg-brand shadow-[0_0_0_4px_var(--glow)] sm:size-[15px] sm:border-4"
               />
-              <div className="card group p-6 transition-colors hover:border-border-strong sm:p-8">
+              <div className="card group p-4 transition-colors hover:border-border-strong min-[400px]:p-5 sm:p-8">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h3 className="text-xl font-semibold tracking-tight">
+                  <h3 className="text-lg font-semibold tracking-tight sm:text-xl">
                     {e.company}
                     <span className="font-normal text-muted"> — {e.role}</span>
                   </h3>
@@ -150,13 +150,13 @@ export function Skills() {
     <section id="skills" className="py-20 sm:py-32">
       <div className="container-x">
         <SectionHeading eyebrow="Skills" title="My toolbox" description="Technologies I've used in real, shipped projects — not just tutorials." />
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {skillGroups.map((g, i) => {
             const Icon = skillIcons[i % skillIcons.length];
             return (
               <Reveal key={g.title} delay={(i % 3) * 0.08} className="h-full">
                 <Tilt className="h-full" max={5}>
-                  <div className="card group h-full p-6 transition-colors hover:border-border-strong">
+                  <div className="card group h-full p-5 transition-colors hover:border-border-strong sm:p-6">
                     <div className="flex items-center gap-3">
                       <span className="grid size-9 place-items-center rounded-xl border border-border bg-bg-soft text-brand transition duration-300 group-hover:rotate-[-8deg] group-hover:scale-110 group-hover:border-brand">
                         <Icon className="size-4" />

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
 import { profile, whatsappHref } from "@/data/profile";
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "./icons";
+import { Logo } from "./Logo";
 
 const nav = [
   { href: "/#work", label: "Work" },
@@ -29,7 +29,7 @@ export function Footer() {
       <div className="container-x grid gap-10 pb-12 pt-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-2.5 font-semibold tracking-tight">
-            <Image src="/portfolio-logo.svg" alt="" width={32} height={32} className="size-8" />
+            <Logo className="size-9" />
             {profile.name}
           </Link>
           <p className="mt-4 max-w-xs text-pretty text-sm text-muted">{profile.headline}</p>

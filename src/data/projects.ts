@@ -35,7 +35,28 @@ export type Project = {
   challenges?: { title: string; body: string }[];
   metrics?: { value: string; label: string }[];
   links: { live?: string; github?: string };
+  /** Asli screenshots (public/projects/<slug>/...). Pehli desktop image card pe dikhti hai. */
+  images?: ProjectImage[];
 };
+
+export type ProjectImage = { src: string; alt: string; device: "desktop" | "mobile"; width: number; height: number };
+
+const shots = (slug: string, title: string, extraDesktop: string[] = []): ProjectImage[] => [
+  { src: `/projects/${slug}/desktop.jpg`, alt: `${title} — home page on desktop`, device: "desktop", width: 1440, height: 900 },
+  { src: `/projects/${slug}/mobile.jpg`, alt: `${title} — home page on mobile`, device: "mobile", width: 780, height: 1688 },
+  ...extraDesktop.map((label, i) => ({
+    src: `/projects/${slug}/desktop-${i + 2}.jpg`,
+    alt: `${title} — ${label}`,
+    device: "desktop" as const,
+    width: 1440,
+    height: 900,
+  })),
+];
+
+/** Live link ka saaf naam: "https://kaasthify.in/" -> "kaasthify.in" */
+export function hostOf(url: string) {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
 
 export const projects: Project[] = [
   {
@@ -89,6 +110,7 @@ export const projects: Project[] = [
       { value: "3", label: "User roles" },
     ],
     links: { live: "https://kaasthify.in" },
+    images: shots("kaasthify", "Kaasthify", ["product listing page"]),
   },
   {
     slug: "batch-ops-dashboard",
@@ -320,6 +342,10 @@ export const projects: Project[] = [
       live: "https://attendance-frontend-eight-weld.vercel.app",
       github: "https://github.com/kharepiyushpk/attendance-frontend",
     },
+    images: [
+      { src: "/projects/attendance-system/desktop.jpg", alt: "Attendance sheet with month, year, employee search and export", device: "desktop", width: 1540, height: 588 },
+      { src: "/projects/attendance-system/mobile.jpg", alt: "Attendance sheet on mobile", device: "mobile", width: 780, height: 1688 },
+    ],
   },
   {
     slug: "adrs-website",
@@ -345,6 +371,7 @@ export const projects: Project[] = [
     ],
     highlights: ["Particle hero background", "Scroll-triggered animations and counters", "Serverless contact form with EmailJS"],
     links: { live: "https://adrs-website.vercel.app", github: "https://github.com/kharepiyushpk/adrs_website" },
+    images: shots("adrs-website", "ADRS Technosoft website"),
   },
   {
     slug: "sea-world-water-solution",
@@ -582,6 +609,7 @@ export const projects: Project[] = [
     stack: [{ group: "Frontend", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS v4", "Motion"] }],
     highlights: ["Static generation for every project page", "Theme toggle without flash", "Filterable project explorer"],
     links: { github: "https://github.com/kharepiyushpk/Portfolio-Website" },
+    images: shots("portfolio", "Portfolio", ["projects explorer"]),
   },
 ];
 

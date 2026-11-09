@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingActions, ScrollProgress } from "@/components/FloatingActions";
+import { HashScroll } from "@/components/HashScroll";
 import { profile } from "@/data/profile";
 import { siteUrl } from "@/lib/site";
 
@@ -19,16 +20,14 @@ export const metadata: Metadata = {
   description: profile.intro,
   keywords: ["Piyush Khare", "Full Stack Developer", "Next.js", "React", "TypeScript", "Node.js", "Java", "Portfolio"],
   authors: [{ name: profile.name, url: profile.socials.github }],
-  icons: { icon: "/portfolio-logo.svg" },
   openGraph: {
     type: "website",
     title: `${profile.name} — ${profile.role}`,
     description: profile.intro,
     url: siteUrl,
     siteName: profile.name,
-    images: [{ url: "/avatar.png", width: 801, height: 868, alt: profile.name }],
   },
-  twitter: { card: "summary", title: `${profile.name} — ${profile.role}`, description: profile.intro, images: ["/avatar.png"] },
+  twitter: { card: "summary_large_image", title: `${profile.name} — ${profile.role}`, description: profile.intro },
 };
 
 export const viewport: Viewport = {
@@ -53,9 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollProgress />
         <Navbar />
-        <main id="main">{children}</main>
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <Footer />
         <FloatingActions />
+        <HashScroll />
       </body>
     </html>
   );

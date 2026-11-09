@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { profile, whatsappHref } from "@/data/profile";
 import { WhatsappIcon } from "./icons";
+import { Logo } from "./Logo";
 
 const links = [
   { href: "/#work", label: "Work" },
@@ -93,9 +93,12 @@ export function Navbar() {
         }`}
         aria-label="Main"
       >
-        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
-          <Image src="/portfolio-logo.svg" alt="" width={28} height={28} className="size-7" priority />
-          <span>{profile.name}</span>
+        <Link href="/" className="group flex items-center gap-2.5 font-semibold tracking-tight" aria-label={`${profile.name} — home`}>
+          <Logo className="size-8 transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-105" />
+          <span className="leading-tight">
+            {profile.name}
+            <span className="hidden text-[11px] font-normal text-muted lg:block">{profile.role}</span>
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -105,7 +108,7 @@ export function Navbar() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`rounded-full px-3 py-1.5 text-sm transition hover:bg-bg-soft hover:text-fg ${active ? "bg-bg-soft text-fg" : "text-muted"}`}
+                  className={`rounded-full px-2.5 py-1.5 text-sm transition hover:bg-bg-soft hover:text-fg lg:px-3 ${active ? "bg-bg-soft text-fg" : "text-muted"}`}
                 >
                   {l.label}
                 </Link>
@@ -116,7 +119,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link href="/#contact" className="btn btn-primary hidden !py-2 !text-sm sm:inline-flex">
+          <Link href="/#contact" className="btn btn-primary hidden !py-2 !text-sm sm:max-md:inline-flex lg:inline-flex">
             Let&apos;s talk
           </Link>
           <button

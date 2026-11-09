@@ -17,14 +17,14 @@ function RoleRotator() {
   }, []);
   return (
     <span className="relative inline-flex h-[1.25em] overflow-hidden align-bottom">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={profile.roles[i]}
           initial={{ y: "100%", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="text-gradient whitespace-nowrap"
+          className="text-gradient whitespace-nowrap text-[0.78em] min-[400px]:text-[0.86em] sm:text-[1em] md:text-[0.72em] lg:text-[0.86em] xl:text-[0.9em]"
         >
           {profile.roles[i]}
         </motion.span>
@@ -34,17 +34,17 @@ function RoleRotator() {
 }
 
 const floating = [
-  { label: "Next.js", cls: "-left-6 top-10 sm:-left-10" },
-  { label: "TypeScript", cls: "-right-4 top-24 sm:-right-8" },
-  { label: "PostgreSQL", cls: "-left-4 bottom-24 sm:-left-12" },
-  { label: "Java · Spring", cls: "-right-6 bottom-28 sm:-right-10" },
+  { label: "Next.js", cls: "-left-5 top-8 sm:-left-10 sm:top-10" },
+  { label: "TypeScript", cls: "-right-5 top-20 sm:-right-8 sm:top-24 md:-right-3 lg:-right-8" },
+  { label: "PostgreSQL", cls: "-left-6 bottom-20 sm:-left-12 sm:bottom-24" },
+  { label: "Java · Spring", cls: "-right-6 bottom-28 sm:-right-10 md:-right-3 lg:-right-10" },
 ];
 
 export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
   const reduce = useReducedMotion();
   const fade = (d: number) =>
     reduce
-      ? {}
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.5, delay: d } }
       : {
           initial: { opacity: 0, y: 16, filter: "blur(8px)" },
           animate: { opacity: 1, y: 0, filter: "blur(0px)" },
@@ -62,14 +62,14 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
       </div>
       <CursorGlow />
 
-      <div className="container-x grid items-center gap-14 lg:grid-cols-[1.25fr_1fr]">
+      <div className="container-x grid items-center gap-12 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-14">
         <div>
           <motion.div {...fade(0)} className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1.5 text-xs text-muted backdrop-blur">
             <span className="pulse-dot size-2 rounded-full bg-green-500" />
             {profile.available ? "Open to full-time roles & freelance projects" : "Currently busy"}
           </motion.div>
 
-          <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 text-[2.5rem] font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl md:text-[3.4rem] lg:text-7xl">
             <SplitWords text={`Hi, I’m ${profile.shortName}.`} inView={false} delay={0.1} stagger={0.09} />
             <br />
             <motion.span {...fade(0.4)} className="inline-block">
@@ -77,7 +77,7 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
             </motion.span>
           </h1>
 
-          <motion.p {...fade(0.16)} className="mt-6 max-w-xl text-pretty text-lg text-muted sm:text-xl">
+          <motion.p {...fade(0.16)} className="mt-6 max-w-xl text-pretty text-base text-muted sm:text-xl md:text-lg lg:text-xl">
             {profile.intro}
           </motion.p>
 
@@ -118,7 +118,7 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
           initial={reduce ? false : { opacity: 0, scale: 0.94, rotate: -2 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px]"
+          className="relative mx-auto w-[78%] max-w-[300px] sm:w-full sm:max-w-[340px] md:max-w-[300px] lg:max-w-[380px]"
         >
           <div className="absolute -inset-4 rounded-[2.5rem] bg-[conic-gradient(from_140deg,var(--brand),var(--brand-2),transparent_55%,var(--brand))] opacity-40 blur-2xl" />
           <Tilt max={9} glare={false}>
@@ -135,7 +135,7 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
                 href={profile.socials.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs text-muted transition hover:text-fg"
+                className="hidden items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs text-muted transition hover:text-fg min-[420px]:inline-flex md:hidden lg:inline-flex"
               >
                 @kharepiyushpk <ArrowUpRight className="size-3" />
               </a>
@@ -145,7 +145,7 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
           {floating.map((f, idx) => (
             <div
               key={f.label}
-              className={`animate-float pointer-events-none absolute hidden rounded-full border border-border-strong bg-card/90 px-3 py-1.5 font-mono text-xs shadow-lg backdrop-blur sm:block ${f.cls}`}
+              className={`animate-float pointer-events-none absolute rounded-full border border-border-strong bg-card/90 px-2.5 py-1 font-mono text-[10px] shadow-lg backdrop-blur sm:px-3 sm:py-1.5 sm:text-xs ${f.cls}`}
               style={{ animationDelay: `${idx * 0.8}s` }}
             >
               {f.label}
@@ -157,7 +157,7 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
       <div className="container-x mt-16 sm:mt-20">
         <Stagger as="dl" delay={0.5} gap={0.1} className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-4">
           {stats.map((s) => (
-            <StaggerItem key={s.label} className="group relative bg-bg px-5 py-6 transition-colors hover:bg-bg-soft sm:px-6">
+            <StaggerItem key={s.label} className="group relative bg-bg px-4 py-5 transition-colors hover:bg-bg-soft sm:px-6 sm:py-6">
               <dt className="text-xs text-muted sm:text-sm">{s.label}</dt>
               <dd className="mt-1 text-2xl font-semibold tracking-tight sm:text-3xl">
                 <CountUp value={s.value} />

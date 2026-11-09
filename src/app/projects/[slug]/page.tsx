@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, CheckCircle2, Lock } from "lucide-react";
-import { getProject, projects } from "@/data/projects";
+import { getProject, hostOf, projects } from "@/data/projects";
+import { BrowserFrame, PhoneFrame } from "@/components/ProjectShot";
 import { ProjectCover } from "@/components/ProjectCover";
 import { StatusBadge } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
@@ -37,6 +38,9 @@ export default async function ProjectPage({ params }: Props) {
   const prev = projects[(idx - 1 + projects.length) % projects.length];
   const next = projects[(idx + 1) % projects.length];
   const isPrivate = !p.links.github;
+  const desktopShot = p.images?.find((i) => i.device === "desktop");
+  const mobileShot = p.images?.find((i) => i.device === "mobile");
+  const moreShots = p.images?.filter((i) => i.device === "desktop" && i !== desktopShot) ?? [];
 
   return (
     <article className="pb-24 pt-28 sm:pt-36" style={{ ["--accent" as string]: p.accent }}>
@@ -61,7 +65,7 @@ export default async function ProjectPage({ params }: Props) {
           <div className="mt-8 flex flex-wrap gap-3">
             {p.links.live && (
               <a href={p.links.live} target="_blank" rel="noreferrer" className="btn btn-primary">
-                Visit live site <ArrowUpRight className="size-4" />
+                Visit {hostOf(p.links.live)} <ArrowUpRight className="size-4" />
               </a>
             )}
             {p.links.github && (
@@ -77,13 +81,45 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-12">
-          <div className="card overflow-hidden">
-            <Parallax offset={-30}>
-              <ProjectCover kind={p.cover} accent={p.accent} className="h-72 scale-110 sm:h-[26rem]" />
-            </Parallax>
-          </div>
-        </Reveal>
+        {desktopShot ? (
+          <Reveal delay={0.1} className="mt-12">
+            <div
+              className="card relative overflow-hidden bg-[radial-gradient(100%_80%_at_100%_0%,color-mix(in_srgb,var(--accent)_26%,transparent),transparent_60%)] p-4 sm:p-8"
+            >
+              <div className="bg-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+              <div className="relative grid items-end gap-5 sm:gap-8 md:grid-cols-[1fr_200px]">
+                <Parallax offset={12}>
+                  <BrowserFrame image={desktopShot} url={p.links.live} priority sizes="(max-width: 768px) 92vw, 860px" />
+                </Parallax>
+                {mobileShot && (
+                  <Parallax offset={-18} className="mx-auto w-[46%] max-w-[200px] md:w-full">
+                    <PhoneFrame image={mobileShot} sizes="200px" />
+                  </Parallax>
+                )}
+              </div>
+              {p.links.live && (
+                <a
+                  href={p.links.live}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="relative mt-5 inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-2 text-sm backdrop-blur transition hover:border-border-strong sm:mt-6"
+                >
+                  <span className="pulse-dot size-2 shrink-0 rounded-full bg-green-500" />
+                  <span className="truncate font-mono text-xs sm:text-sm">{p.links.live.replace(/\/$/, "")}</span>
+                  <ArrowUpRight className="size-4 shrink-0" />
+                </a>
+              )}
+            </div>
+          </Reveal>
+        ) : (
+          <Reveal delay={0.1} className="mt-12">
+            <div className="card overflow-hidden">
+              <Parallax offset={-30}>
+                <ProjectCover kind={p.cover} accent={p.accent} className="h-72 scale-110 sm:h-[26rem]" />
+              </Parallax>
+            </div>
+          </Reveal>
+        )}
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0 space-y-14">
@@ -110,6 +146,20 @@ export default async function ProjectPage({ params }: Props) {
                 ))}
               </Stagger>
             </Reveal>
+
+            {moreShots.length > 0 && (
+              <Reveal as="section">
+                <h2 className="eyebrow">More screens</h2>
+                <div className="mt-5 space-y-5">
+                  {moreShots.map((img) => (
+                    <figure key={img.src}>
+                      <BrowserFrame image={img} url={p.links.live} sizes="(max-width: 1024px) 92vw, 720px" />
+                      <figcaption className="mt-2 text-center text-xs text-subtle">{img.alt}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </Reveal>
+            )}
 
             {p.challenges && (
               <Reveal as="section">

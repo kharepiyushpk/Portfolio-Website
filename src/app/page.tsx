@@ -46,11 +46,11 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="mt-14 space-y-5">
+          <div className="mt-10 space-y-4 sm:mt-14 sm:space-y-5">
             <Reveal>
               <ProjectCard project={lead} size="lg" />
             </Reveal>
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
               {restFeatured.map((p, i) => (
                 <Reveal key={p.slug} delay={(i % 2) * 0.08}>
                   <ProjectCard project={p} />
@@ -68,7 +68,7 @@ export default function Home() {
       <section className="border-t border-border bg-bg-soft py-20 sm:py-32">
         <div className="container-x">
           <SectionHeading eyebrow="More projects" title="Client work, Java builds and experiments" />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {more.map((p, i) => (
               <Reveal key={p.slug} delay={(i % 3) * 0.06}>
                 <ProjectCard project={p} size="sm" />

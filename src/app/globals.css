@@ -270,13 +270,21 @@ body {
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+/* "Reduce motion" on ho (kai phones me battery saver ise on kar deta hai):
+   sirf bade / lagatar chalne wale effects band, halke fade chalte rahenge */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-drift,
+  .animate-drift-2,
+  .animate-drift-3,
+  .animate-float,
+  .text-gradient {
+    animation: none !important;
+  }
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation-duration: 90s;
   }
 }

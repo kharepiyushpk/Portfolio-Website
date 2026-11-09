@@ -38,11 +38,10 @@ export function useFinePointer() {
 export function CountUp({ value, duration = 1.6, className }: { value: string; duration?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduce = useReducedMotion();
   const m = value.match(/^(\D*)(\d+)(\D*)$/);
 
   useEffect(() => {
-    if (!m || !inView || reduce || !ref.current) return;
+    if (!m || !inView || !ref.current) return;
     const [, pre, num, post] = m;
     const el = ref.current;
     const controls = animate(0, Number(num), {
@@ -52,7 +51,7 @@ export function CountUp({ value, duration = 1.6, className }: { value: string; d
     });
     return () => controls.stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView, reduce]);
+  }, [inView]);
 
   // Server pe asli value render hoti hai (SEO + JS na ho tab bhi sahi)
   return (
@@ -81,7 +80,6 @@ export function SplitWords({
 }) {
   const reduce = useReducedMotion();
   const words = text.split(" ");
-  if (reduce) return <span className={className}>{text}</span>;
 
   const trigger = inView
     ? { whileInView: "show", viewport: { once: true, margin: "-60px" } }
@@ -94,7 +92,7 @@ export function SplitWords({
           <motion.span
             className="inline-block"
             variants={{
-              hidden: { y: "105%", rotate: 4, opacity: 0 },
+              hidden: reduce ? { opacity: 0 } : { y: "105%", rotate: 4, opacity: 0 },
               show: { y: "0%", rotate: 0, opacity: 1, transition: { duration: 0.75, ease, delay: delay + i * stagger } },
             }}
           >
@@ -123,6 +121,7 @@ export function Magnetic({ children, strength = 0.35, className }: { children: R
       ref={ref}
       style={active ? { x, y } : undefined}
       className={`inline-block ${className ?? ""}`}
+      whileTap={{ scale: 0.94 }}
       onPointerMove={(e) => {
         if (!active || !ref.current) return;
         const r = ref.current.getBoundingClientRect();
@@ -166,7 +165,23 @@ export function Tilt({
   const gy = useTransform(py, (v) => `${v * 100}%`);
   const glareBg = useMotionTemplate`radial-gradient(500px circle at ${gx} ${gy}, rgba(255,255,255,0.09), transparent 45%)`;
 
-  if (!active) return <div className={className}>{children}</div>;
+  // Phone/touch: mouse nahi hai, to card scroll pe 3D me "khada" hota hai aur dabane pe press hota hai
+  if (!active)
+    return (
+      <div className={`[perspective:900px] ${className ?? ""}`}>
+        <motion.div
+          className="relative h-full"
+          initial={reduce ? false : { rotateX: 14, y: 28, scale: 0.96 }}
+          whileInView={{ rotateX: 0, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ type: "spring", stiffness: 110, damping: 18, mass: 0.8 }}
+          whileTap={{ scale: 0.985 }}
+          style={{ transformOrigin: "50% 100%" }}
+        >
+          {children}
+        </motion.div>
+      </div>
+    );
 
   return (
     <div className={`[perspective:1100px] ${className ?? ""}`}>
@@ -175,7 +190,8 @@ export function Tilt({
         style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
         className="group/tilt relative h-full will-change-transform"
         onPointerMove={(e) => {
-          const r = ref.current!.getBoundingClientRect();
+          if (!ref.current) return;
+          const r = ref.current.getBoundingClientRect();
           px.set((e.clientX - r.left) / r.width);
           py.set((e.clientY - r.top) / r.height);
         }}
@@ -213,12 +229,11 @@ export function Stagger({
   delay?: number;
   as?: "div" | "ul" | "ol" | "dl";
 }) {
-  const reduce = useReducedMotion();
   const Comp = motion[as];
   return (
     <Comp
       className={className}
-      initial={reduce ? false : "hidden"}
+      initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-50px" }}
       variants={{ hidden: {}, show: { transition: { staggerChildren: gap, delayChildren: delay } } }}
