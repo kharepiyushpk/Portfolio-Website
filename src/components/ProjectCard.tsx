@@ -75,7 +75,7 @@ export function ProjectCard({ project, size = "md" }: { project: Project; size?:
             <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
         </div>
-        <ProjectCover kind={project.cover} accent={project.accent} className="min-h-[280px] border-t border-border md:border-l md:border-t-0" />
+        <ProjectCover kind={project.cover} accent={project.accent} className="h-72 border-t md:h-auto md:min-h-[300px] border-border md:border-l md:border-t-0" />
       </Link>
     );
   }
@@ -88,12 +88,14 @@ export function ProjectCard({ project, size = "md" }: { project: Project; size?:
     >
       <div className="relative">
         <ProjectCover kind={project.cover} accent={project.accent} className={size === "sm" ? "h-44" : "h-56"} />
-        <div className="absolute left-4 top-4">
-          <StatusBadge status={project.status} />
-        </div>
       </div>
       <div className="flex flex-1 flex-col border-t border-border p-5 sm:p-6">
-        <div className="flex items-center gap-2 text-xs text-muted">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+          <span className="inline-flex items-center gap-1.5 font-medium text-fg/80">
+            <span className={`size-1.5 rounded-full ${project.status === "Live" || project.status === "In production" ? "bg-green-500" : "bg-subtle"}`} />
+            {project.status}
+          </span>
+          <span className="text-subtle">•</span>
           <span>{project.context}</span>
           <span className="text-subtle">•</span>
           <span>{project.year}</span>

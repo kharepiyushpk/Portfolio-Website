@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { FloatingActions, ScrollProgress } from "@/components/FloatingActions";
 import { profile } from "@/data/profile";
 
 const sans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
@@ -49,9 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] btn btn-primary">
           Skip to content
         </a>
+        <ScrollProgress />
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
+        <FloatingActions />
       </body>
     </html>
   );

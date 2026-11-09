@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Check, Copy, Mail, Phone, Send } from "lucide-react";
-import { profile } from "@/data/profile";
-import { GithubIcon, InstagramIcon, LinkedinIcon } from "./icons";
+import { ArrowUpRight, Check, Copy, Mail, Phone } from "lucide-react";
+import { profile, whatsappHref } from "@/data/profile";
+import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "./icons";
 import { Reveal } from "./Reveal";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
-  const [form, setForm] = useState({ name: "", subject: "", message: "" });
 
   async function copy() {
     try {
@@ -18,92 +17,125 @@ export function Contact() {
     } catch {}
   }
 
-  // Backend nahi hai — form user ka mail app khol deta hai, sab bhara hua
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
-    const subject = form.subject || `Hello from ${form.name || "your portfolio"}`;
-    const body = `${form.message}\n\n— ${form.name}`;
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-
-  const socials = [
-    { href: profile.socials.github, label: "GitHub", sub: "@kharepiyushpk", Icon: GithubIcon },
-    { href: profile.socials.linkedin, label: "LinkedIn", sub: "Piyush Khare", Icon: LinkedinIcon },
-    { href: profile.socials.instagram, label: "Instagram", sub: "@piyush_khare_23", Icon: InstagramIcon },
+  const actions = [
+    {
+      href: whatsappHref,
+      external: true,
+      label: "WhatsApp",
+      value: profile.phone,
+      note: "Fastest way to reach me",
+      Icon: WhatsappIcon,
+      color: "#25d366",
+    },
+    {
+      href: `mailto:${profile.email}`,
+      external: false,
+      label: "Email",
+      value: profile.email,
+      note: "For detailed project briefs",
+      Icon: Mail,
+      color: "var(--brand)",
+      copy: true,
+    },
+    {
+      href: `tel:+${profile.whatsapp}`,
+      external: false,
+      label: "Call",
+      value: profile.phone,
+      note: "Mon – Sat, 10 am – 8 pm IST",
+      Icon: Phone,
+      color: "var(--brand-2)",
+    },
   ];
 
-  const input =
-    "w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm outline-none transition placeholder:text-subtle focus:border-brand focus:ring-4 focus:ring-[var(--ring)]";
+  const socials = [
+    { href: profile.socials.github, label: "GitHub", Icon: GithubIcon },
+    { href: profile.socials.linkedin, label: "LinkedIn", Icon: LinkedinIcon },
+    { href: profile.socials.instagram, label: "Instagram", Icon: InstagramIcon },
+  ];
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-border py-24 sm:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[420px] bg-[radial-gradient(60%_100%_at_50%_100%,var(--glow),transparent)]" />
-      <div className="container-x grid gap-12 lg:grid-cols-2">
-        <Reveal>
+    <section id="contact" className="relative overflow-hidden border-t border-border py-20 sm:py-32">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_bottom,black_20%,transparent_70%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[480px] bg-[radial-gradient(60%_100%_at_50%_100%,var(--glow),transparent)]" />
+      </div>
+
+      <div className="container-x">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Contact</p>
-          <h2 className="mt-3 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          <h2 className="mt-3 text-[2.1rem] font-semibold leading-[1.1] tracking-tight text-balance sm:text-6xl">
             Have a project or a role in mind? <span className="text-gradient">Let&apos;s talk.</span>
           </h2>
-          <p className="mt-5 max-w-md text-pretty text-lg text-muted">
-            I reply within a day. Tell me what you&apos;re building — a product, an internal tool, or something that needs automating.
+          <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted sm:text-lg">
+            Tell me what you&apos;re building — a product, an internal tool, or a process that needs automating. I usually reply within a day.
           </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-2">
-            <a href={`mailto:${profile.email}`} className="btn btn-primary">
-              <Mail className="size-4" /> {profile.email}
-            </a>
-            <button onClick={copy} className="btn btn-ghost" aria-label="Copy email address">
-              {copied ? <Check className="size-4 text-green-500" /> : <Copy className="size-4" />}
-              {copied ? "Copied" : "Copy"}
-            </button>
+          <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1.5 text-xs text-muted backdrop-blur">
+            <span className="pulse-dot size-2 rounded-full bg-green-500" />
+            Available for full-time roles & freelance work
           </div>
-          <a href={`tel:${profile.phone.replace(/\s/g, "")}`} className="mt-4 inline-flex items-center gap-2 text-sm text-muted hover:text-fg">
-            <Phone className="size-4" /> {profile.phone}
-          </a>
+        </Reveal>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
-            {socials.map(({ href, label, sub, Icon }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" className="card group flex items-center gap-3 p-4 transition hover:border-border-strong">
-                <Icon className="size-5" />
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium">{label}</span>
-                  <span className="block truncate text-xs text-muted">{sub}</span>
+        <div className="mx-auto mt-12 grid max-w-5xl gap-3 sm:mt-14 sm:gap-4 md:grid-cols-3">
+          {actions.map((a, i) => (
+            <Reveal key={a.label} delay={i * 0.08}>
+              <div
+                style={{ ["--c" as string]: a.color }}
+                className="card group relative flex h-full items-center gap-4 overflow-hidden p-4 transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--c)_55%,transparent)] hover:shadow-[0_20px_50px_-24px_var(--c)] md:flex-col md:items-start md:p-6 md:min-h-[220px]"
+              >
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c)_22%,transparent),transparent)] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+                />
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[color-mix(in_srgb,var(--c)_14%,transparent)] text-[var(--c)] ring-1 ring-[color-mix(in_srgb,var(--c)_30%,transparent)] md:size-14">
+                  <a.Icon className="size-6" />
                 </span>
-                <ArrowUpRight className="ml-auto size-4 text-muted transition group-hover:text-fg" />
-              </a>
-            ))}
-          </div>
-        </Reveal>
+                <span className="min-w-0 flex-1 md:mt-auto">
+                  <a
+                    href={a.href}
+                    target={a.external ? "_blank" : undefined}
+                    rel={a.external ? "noreferrer" : undefined}
+                    className="flex items-center gap-1.5 text-lg font-semibold tracking-tight outline-none after:absolute after:inset-0 after:rounded-[inherit] focus-visible:after:ring-2 focus-visible:after:ring-[var(--c)]"
+                  >
+                    {a.label}
+                    <ArrowUpRight className="size-4 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
+                  </a>
+                  <span className="mt-0.5 block truncate text-sm text-fg/85">{a.value}</span>
+                  <span className="mt-1 block text-xs text-muted">{a.note}</span>
+                </span>
+                {a.copy && (
+                  <button
+                    onClick={copy}
+                    aria-label="Copy email address"
+                    className="relative z-10 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-bg text-muted transition hover:border-border-strong hover:text-fg md:absolute md:right-4 md:top-4 md:size-9"
+                  >
+                    {copied ? <Check className="size-4 text-green-500" /> : <Copy className="size-4" />}
+                  </button>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
 
-        <Reveal delay={0.1}>
-          <form onSubmit={submit} className="card space-y-4 p-6 sm:p-8">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="space-y-2 text-sm">
-                <span className="text-muted">Your name</span>
-                <input required className={input} placeholder="Jane Doe" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              </label>
-              <label className="space-y-2 text-sm">
-                <span className="text-muted">Subject</span>
-                <input className={input} placeholder="Project enquiry" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
-              </label>
-            </div>
-            <label className="block space-y-2 text-sm">
-              <span className="text-muted">Message</span>
-              <textarea
-                required
-                rows={6}
-                className={`${input} resize-none`}
-                placeholder="Tell me a bit about what you need…"
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-              />
-            </label>
-            <button type="submit" className="btn btn-primary w-full">
-              <Send className="size-4" /> Send message
-            </button>
-            <p className="text-center text-xs text-subtle">Opens your email app with the message filled in.</p>
-          </form>
+        <Reveal delay={0.2} className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:mt-10">
+          <span className="mr-1 w-full text-center text-xs text-subtle sm:w-auto">Also on</span>
+          {socials.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted transition hover:border-border-strong hover:text-fg"
+            >
+              <Icon /> {label}
+            </a>
+          ))}
         </Reveal>
+        {copied && (
+          <p role="status" className="sr-only">
+            Email copied
+          </p>
+        )}
       </div>
     </section>
   );

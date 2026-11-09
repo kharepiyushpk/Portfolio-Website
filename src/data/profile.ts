@@ -8,6 +8,9 @@ export const profile = {
   location: "India",
   email: "kharepiyushpk@gmail.com",
   phone: "+91 95164 67095",
+  // wa.me link: country code + number, bina + aur spaces ke
+  whatsapp: "919516467095",
+  whatsappText: "Hi Piyush, I saw your portfolio and would like to talk about",
   avatar: "/avatar.png",
   available: true,
   siteUrl: "https://portfolio-website-tan-gamma-33.vercel.app",
@@ -23,6 +26,8 @@ export const profile = {
     "I care about the boring parts too: migrations that run on every deploy, rollback before every write, tests for the tricky logic, and pages that stay fast on real data.",
   ],
 };
+
+export const whatsappHref = `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(profile.whatsappText)}`;
 
 export type Experience = {
   company: string;

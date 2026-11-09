@@ -10,7 +10,7 @@ const accSoft = "bg-[color-mix(in_srgb,var(--accent)_22%,transparent)]";
 
 function Window({ children, title }: { children: React.ReactNode; title?: string }) {
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border-strong bg-card shadow-[0_20px_50px_-20px_rgba(0,0,0,0.45)]">
+    <div className="flex w-full max-w-[540px] flex-col overflow-hidden rounded-xl border border-border-strong bg-card shadow-[0_20px_50px_-20px_rgba(0,0,0,0.45)]">
       <div className="flex items-center gap-1.5 border-b border-border px-3 py-2">
         <span className="size-2 rounded-full bg-[#ff5f57]" />
         <span className="size-2 rounded-full bg-[#febc2e]" />
@@ -47,7 +47,7 @@ function Marketplace() {
 function Dashboard() {
   return (
     <Window title="batch-ops / live-arrange">
-      <div className="flex h-full gap-2">
+      <div className="flex gap-2">
         <div className="hidden w-1/4 space-y-1.5 sm:block">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div key={i} className={`h-3 rounded ${i === 1 ? acc : block}`} />
@@ -76,7 +76,7 @@ function Video() {
   const wave = [3, 6, 9, 4, 2, 1, 1, 7, 10, 6, 3, 1, 1, 1, 5, 8, 9, 4, 2, 1, 6, 9, 5, 3, 1, 1, 4, 7];
   return (
     <Window title="timing-tool.m3u8">
-      <div className={`relative mb-2 h-[45%] rounded-lg ${block} grid place-items-center`}>
+      <div className={`relative mb-2 h-24 rounded-lg ${block} grid place-items-center`}>
         <div className={`grid size-8 place-items-center rounded-full ${acc}`}>
           <div className="ml-0.5 size-0 border-y-[6px] border-l-[9px] border-y-transparent border-l-white" />
         </div>
@@ -136,7 +136,7 @@ function Tests() {
 function Store() {
   return (
     <Window title="store">
-      <div className="grid h-full grid-cols-[1.2fr_1fr] gap-2">
+      <div className="grid h-36 grid-cols-[1.2fr_1fr] gap-2">
         <div className={`relative rounded-lg ${accSoft} grid place-items-center`}>
           <div className={`size-12 rotate-45 rounded-md border-4 border-[var(--accent)]`} />
         </div>
@@ -220,7 +220,7 @@ function Api() {
 function Desktop() {
   return (
     <Window title="ATM">
-      <div className="grid h-full grid-cols-2 gap-2">
+      <div className="grid h-28 grid-cols-3 gap-2">
         {["Deposit", "Withdraw", "Fast Cash", "Statement", "Balance", "PIN"].map((t, i) => (
           <div key={t} className={`grid place-items-center rounded-md text-[9px] font-medium ${i === 0 ? `${acc} text-white` : `${block} text-muted`}`}>
             {t}
@@ -234,7 +234,7 @@ function Desktop() {
 function Chat() {
   return (
     <Window title="chat">
-      <div className="flex h-full flex-col justify-end gap-1.5">
+      <div className="flex h-32 flex-col justify-end gap-1.5">
         <div className={`h-5 w-1/2 rounded-xl rounded-bl-sm ${block}`} />
         <div className={`ml-auto h-5 w-2/5 rounded-xl rounded-br-sm ${acc}`} />
         <div className={`h-5 w-3/5 rounded-xl rounded-bl-sm ${block}`} />
@@ -315,7 +315,7 @@ export function ProjectCover({ kind, accent, className = "" }: { kind: CoverKind
       className={`relative overflow-hidden bg-[radial-gradient(120%_90%_at_100%_0%,color-mix(in_srgb,var(--accent)_28%,transparent),transparent_60%),radial-gradient(90%_80%_at_0%_100%,color-mix(in_srgb,var(--accent)_14%,transparent),transparent_60%)] ${className}`}
     >
       <div className="bg-grid absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-      <div className="absolute inset-0 flex items-center justify-center p-6 transition-transform duration-500 group-hover:scale-[1.03] sm:p-8">
+      <div className="absolute inset-0 flex items-start justify-center px-5 pt-6 transition-transform duration-500 [mask-image:linear-gradient(to_bottom,black_72%,transparent)] group-hover:-translate-y-1 sm:px-8 sm:pt-8">
         <Comp />
       </div>
     </div>

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowDownRight, ArrowUpRight, Mail, MapPin } from "lucide-react";
-import { profile } from "@/data/profile";
-import { GithubIcon, InstagramIcon, LinkedinIcon } from "./icons";
+import { profile, whatsappHref } from "@/data/profile";
+import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "./icons";
 
 function RoleRotator() {
   const [i, setI] = useState(0);
@@ -91,6 +91,9 @@ export function Hero({ stats }: { stats: { value: string; label: string }[] }) {
             </a>
             <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="transition hover:text-fg">
               <LinkedinIcon className="size-5" />
+            </a>
+            <a href={whatsappHref} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="transition hover:text-[#25d366]">
+              <WhatsappIcon className="size-5" />
             </a>
             <a href={profile.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="transition hover:text-fg">
               <InstagramIcon className="size-5" />

@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, Moon, Sun, X } from "lucide-react";
-import { profile } from "@/data/profile";
+import { profile, whatsappHref } from "@/data/profile";
+import { WhatsappIcon } from "./icons";
 
 const links = [
   { href: "/#work", label: "Work" },
@@ -54,6 +55,28 @@ export function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Home page pe jo section screen ke beech me hai, uska link highlight karo
+  const [section, setSection] = useState("");
+  useEffect(() => {
+    if (pathname !== "/") return setSection("");
+    const ids = ["work", "about", "experience", "skills", "contact"];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setSection(e.target.id)),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [pathname]);
+
+  // Mobile menu khula ho to peeche ka page scroll na ho
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4">
       <nav
@@ -71,7 +94,7 @@ export function Navbar() {
 
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => {
-            const active = l.href === "/projects" ? pathname.startsWith("/projects") : false;
+            const active = l.href === "/projects" ? pathname.startsWith("/projects") : section !== "" && l.href === "/#" + section;
             return (
               <li key={l.href}>
                 <Link
@@ -110,11 +133,22 @@ export function Navbar() {
             transition={{ duration: 0.18 }}
             className="mx-auto mt-2 max-w-5xl rounded-3xl border border-border bg-[color-mix(in_srgb,var(--bg)_92%,transparent)] p-2 backdrop-blur-xl md:hidden"
           >
-            {[...links, { href: "/#contact", label: "Contact" }].map((l) => (
-              <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block rounded-2xl px-4 py-3 text-base hover:bg-bg-soft">
-                {l.label}
-              </Link>
+            {[...links, { href: "/#contact", label: "Contact" }].map((l, i) => (
+              <motion.div key={l.href} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.03 * i }}>
+                <Link href={l.href} onClick={() => setOpen(false)} className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-base hover:bg-bg-soft">
+                  {l.label}
+                  <span className="font-mono text-xs text-subtle">0{i + 1}</span>
+                </Link>
+              </motion.div>
             ))}
+            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-border p-2 pt-4">
+              <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn !bg-[#25d366] !text-white">
+                <WhatsappIcon /> WhatsApp
+              </a>
+              <a href={`mailto:${profile.email}`} className="btn btn-ghost">
+                Email me
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

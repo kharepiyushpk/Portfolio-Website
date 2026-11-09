@@ -31,7 +31,7 @@ export default function Home() {
       <Hero stats={stats} />
       <TechMarquee items={marquee} />
 
-      <section id="work" className="py-24 sm:py-32">
+      <section id="work" className="py-20 sm:py-32">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
@@ -65,7 +65,7 @@ export default function Home() {
       <Experience />
       <Skills />
 
-      <section className="border-t border-border bg-bg-soft py-24 sm:py-32">
+      <section className="border-t border-border bg-bg-soft py-20 sm:py-32">
         <div className="container-x">
           <SectionHeading eyebrow="More projects" title="Client work, Java builds and experiments" />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

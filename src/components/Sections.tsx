@@ -28,7 +28,7 @@ const principles = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 sm:py-32">
+    <section id="about" className="py-20 sm:py-32">
       <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <SectionHeading eyebrow="About" title={<>Turning manual work into <span className="text-gradient">software people trust</span></>} />
         <div className="space-y-5 text-pretty text-lg leading-relaxed text-muted">
@@ -54,7 +54,7 @@ export function About() {
 
 export function Experience() {
   return (
-    <section id="experience" className="border-t border-border bg-bg-soft py-24 sm:py-32">
+    <section id="experience" className="border-t border-border bg-bg-soft py-20 sm:py-32">
       <div className="container-x">
         <SectionHeading eyebrow="Experience" title="Where I've been building" description="Teams and products I've worked on, and what I shipped there." />
         <ol className="relative mt-14 space-y-6 before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-px before:bg-border-strong sm:space-y-8">
@@ -111,7 +111,7 @@ const skillIcons = [Code2, Server, Database, Boxes, FlaskConical, Plug];
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 sm:py-32">
+    <section id="skills" className="py-20 sm:py-32">
       <div className="container-x">
         <SectionHeading eyebrow="Skills" title="My toolbox" description="Technologies I've used in real, shipped projects — not just tutorials." />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
